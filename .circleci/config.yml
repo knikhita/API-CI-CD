@@ -27,4 +27,4 @@ workflows:
   send-notification:
     jobs:
       - notify:
-          context: SLACK_DEFAULT_CHANNEL1
+          context: SLACK_DEFAULT_CHANNEL
