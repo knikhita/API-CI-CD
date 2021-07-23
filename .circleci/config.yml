@@ -5,6 +5,11 @@ jobs:
   notify:
     docker:
       - image: 'cimg/base:stable'
+
+    environment:
+      TEST_REPORTS: /tmp/test-reports
+
+    working_directory: ~/my-project
     steps:
       - slack/notify:
           event: fail
@@ -13,7 +18,7 @@ jobs:
           event: pass
           template: success_tagged_deploy_1
       - store_test_results:
-          path: test
+          path: /tmp/test-reports
           
 workflows:
   send-notification:
