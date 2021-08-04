@@ -1,0 +1,114 @@
+{
+	"id": "55e9634f-fbf1-4338-b883-4358f39e08ac",
+	"name": "Test Env",
+	"values": [
+		{
+			"key": "dappId",
+			"value": "5e9a0fc5667350123f4de8fe",
+			"enabled": true
+		},
+		{
+			"key": "x-api-key",
+			"value": "q9oEztJM8.e8ed08a7-5b38-48e3-b4c0-f66e6b66f407",
+			"enabled": true
+		},
+		{
+			"key": "base_url",
+			"value": "https://test-api.biconomy.io",
+			"enabled": true
+		},
+		{
+			"key": "userAddress",
+			"value": "0x53f07f0f8c6ad8cf6eebb14bd9720bb5852c9ffa",
+			"enabled": true
+		},
+		{
+			"key": "apiId",
+			"value": "5ea2ffe3667350123f4de962",
+			"enabled": true
+		},
+		{
+			"key": "gasPriceInHex",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "randomEmail",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "dappName",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "authorization",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "hmac",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "emailForOTP",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "hyphen_base_url",
+			"value": "https://hyphen-test-api.biconomy.io",
+			"enabled": true
+		},
+		{
+			"key": "daiTokenAddress",
+			"value": "0x2686eca13186766760a0347ee8eeb5a88710e11b",
+			"enabled": true
+		},
+		{
+			"key": "usdcTokenAddress",
+			"value": "0xb5B640E6414b6DeF4FC9B3C1EeF373925effeCcF",
+			"enabled": true
+		},
+		{
+			"key": "usdtTokenAddress",
+			"value": "0x64ef393b6846114bad71e2cb2ccc3e10736b5716",
+			"enabled": true
+		},
+		{
+			"key": "tokenAddress",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "amount",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "quote",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "apiName",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "methodTypes",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-06-16T10:07:56.034Z",
+	"_postman_exported_using": "Postman/8.6.1"
+}

@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "5dabcb3b-af98-4123-80fa-5f9db63b8074",
+		"name": "Core-40",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Update addMethod API",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"var reqData = JSON.parse(request.data);",
+									"",
+									"postman.setEnvironmentVariable('access_token',data.access_token);",
+									"// postman.setEnvironmentVariable();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"nikhita+3564@biconomy.io\",\n    \"password\": \"Test@123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update addMethod API",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var name = postman.getEnvironmentVariable(\"apiName\");",
+									"// var name = 1;",
+									"// name++;",
+									"// postman.setEnvironmentVariable(\"apiName\", \"Test addMethod \" + name);",
+									"",
+									"// var methodTypes = pm.environment.get(\"methodTypes\");",
+									"// if(methodTypes == \"\"){",
+									"//     methodTypes = [\"write\",\"read\"];",
+									"//  }",
+									"// var currentNode = methodTypes.shift();",
+									"// console.log(currentNode, methodTypes);",
+									"// pm.environment.set(\"methodTypes\", currentNode);",
+									"// pm.environment.set(\"methodTypes\", methodTypes);",
+									"",
+									"",
+									"var rndName = Math.floor((Math.random()* 100) +1 );",
+									"postman.setEnvironmentVariable(\"apiName\",\"TEST addMethod \" + rndName ); "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"var reqData = JSON.parse(request.data);",
+									"// var reqData = request.data;",
+									"",
+									"",
+									"// Test Action Category > Validate status code",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"pm.test(\"Check credentials validity\", function () {",
+									"    if (data === 200 || data === 201) {",
+									"        tests[\"Error should have false property\"] = data.error === \"false\"",
+									"        // return;",
+									"      } else if (data === 503 || data === 400) {",
+									"        console.log(\"Error occured\");",
+									"      }",
+									"    });",
+									"",
+									"",
+									"// Test Action Category > Validate Headers",
+									"",
+									"pm.test(\"Check custom response headers\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\",\"application/json; charset=utf-8\");",
+									"    pm.response.to.be.header(\"Connection\",\"keep-alive\");",
+									"    pm.response.to.be.header(\"access-control-allow-headers\",\"X-Requested-With,content-type\");",
+									"    pm.response.to.be.header(\"access-control-allow-credentials\",\"true\");",
+									"});",
+									"",
+									"",
+									"",
+									"// Test Action Category > Validate Response Time",
+									"",
+									"pm.test(\"Response time is less than 2s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"// Test Action Category > Validate API schema",
+									"",
+									"// AJV Schema Validator",
+									"",
+									"pm.test('Check addMethod API schema', function() {",
+									"    var Ajv = require('ajv');",
+									"    ajv = new Ajv(),",
+									"    schema = { //Schema should contain an Array",
+									"        \"type\": \"array\",",
+									"        \"items\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"authToken\": { \"type\": \"string\" },",
+									"                        \"apiKey\" : { \"type\": \"string\" },",
+									"                        \"methodType\": { \"type\": \"string\" },",
+									"                        \"name\": { \"type\": \"string\" },",
+									"                        \"apiType\": { \"type\": \"string\" },",
+									"                        \"contractAddress\": { \"type\": \"string\"},",
+									"                        \"method\": { \"type\": \"string\"},",
+									"                        ",
+									"                    },\"required\" : [\"authToken\",\"apiKey\", \"methodType\", \"name\", \"apiType\", \"contractAddress\", \"method\"]",
+									"            ",
+									"        }",
+									"    };",
+									"});",
+									"    ",
+									"    var validate = ajv.compile(schema);",
+									"    var valid = validate(data);",
+									"",
+									"// Test Action Category > Validate response ",
+									"",
+									"pm.test(\"Validate api registration\", function () {",
+									"    if (data.code === 200 || data.code === 201 ) {",
+									"        pm.expect(data.apiIds).to.have.lengthOf(1);",
+									"      } else if (data.apiIds !== 0) {",
+									"        pm.expect(data.message).to.eql('Api registered successfully');",
+									"      }else if (data.code === 503 || data.code === 400 ) {",
+									"        pm.expect(data.message).to.eql('');",
+									"        pm.expect(data.log).to.eq(\"Following fields are mandatory in request query and should not be empty: methodType\");",
+									"      }",
+									"});",
+									"pm.test(\"Validate api IDs\", function () {",
+									"    if (data.code === 200 || data.code === 201 ) {",
+									"        tests[\"Unique apiId should be present\"] = data.apiIds.apiId === data.apiIds.apiId;",
+									"      }else if (data.code === 503 || data.code === 400) {",
+									"        console.log(\"Unauthorized!!\");",
+									"      }",
+									"});",
+									"",
+									"pm.test(\"Validate contract address in request payload\", function () {",
+									"    if (data.code === 200 || data.code === 201 ) {",
+									"        tests[\"Valid contract address is present\"] = reqData.contractAddress === reqData.contractAddress;",
+									"      }else if (data.code === 404) {",
+									"        tests[\"Validate Contract Address\"] = data.message === \"No contract found\";",
+									"        console.log(data.message);",
+									"      }",
+									"});",
+									"",
+									"pm.test(\"Validate method type in request payload\", function () {",
+									"    if (data.code === 200 || data.code === 201 && reqData.methodType === \"write\") {",
+									"        tests[\"Write method type is present\"] = reqData.methodType === \"write\";",
+									"        ",
+									"    }else if (data.code === 200 || data.code === 201 && reqData.methodType === \"read\") {",
+									"        tests[\"Read method type is present\"] = reqData.methodType === \"read\";",
+									"    }else if (data.flag === 400 && data === 400) {",
+									"        pm.expect(data.log).to.eq(\"Following fields are mandatory in request query and should not be empty: methodType\");",
+									"      }",
+									"});",
+									"",
+									"pm.test(\"Validate api type in request payload\", function () {",
+									"    if (data.code === 200 || data.code === 201 && reqData.methodType === \"native\") {",
+									"        tests[\"Native api type is present\"] = reqData.apiType === \"native\";",
+									"      }else if (data.responseCode === 400 && !reqData.apiType === \"native\") {",
+									"        tests[\"Native api type is not present\"] = data.message === \"Invalid apiType: \" + reqData.apiType;",
+									"      }",
+									"});",
+									"",
+									"pm.test(\"Validate method in request payload\", function () {",
+									"    if (data.code === 200 || data.code === 201 && reqData.method === \"executeMetaTransaction\") {",
+									"        tests[\"executeMetaTransaction method is present\"] = reqData.method === \"executeMetaTransaction\";",
+									"    }else if (data.responseCode === 400 && !reqData.method === \"executeMetaTransaction\") {",
+									"        tests[\"executeMetaTransaction method is not present\"] = data.message === \"Method \" + reqData.method + \"not available in the Smart Contract\";",
+									"      }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "authToken",
+								"value": "1dee4381-f605-4e17-88c9-9d2b1929f620",
+								"type": "text"
+							},
+							{
+								"key": "apiKey",
+								"value": "fqltF-s4R.5248ef00-a5e0-4e70-81d5-c97a21612d15",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"method\": \"executeMetaTransaction\",\n  \"contractAddress\": \"0x6e56b609E167c79C6C21b356802b3C831E13BF16\",\n  \"name\": \"{{apiName}}\",\n  \"methodType\": \"write\",\n  \"apiType\": \"native\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/meta-api/public-api/addMethod",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"meta-api",
+								"public-api",
+								"addMethod"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
