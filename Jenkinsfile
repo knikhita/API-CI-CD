@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'newman run core-40.json -e Test-Env.json'
+        fileExists 'core-40.json'
       }
     }
 
