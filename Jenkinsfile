@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'newman run core-40.json -e Test-Env.json -r htmlextra --reporter-htmlextra-export newman/testReport.html'
+        sh 'newman run core-40.json -e Test-Env.json'
       }
     }
 
