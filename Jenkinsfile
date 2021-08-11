@@ -7,9 +7,9 @@ pipeline {
       }
     }
 
-    stage('End : Send Email') {
+    stage('Send Email') {
       steps {
-        emailext(subject: 'API test mail', body: 'PLease download the HTML report', attachLog: true, compressLog: true, from: 'nikhita@biconomy.io', to: 'nikhita@biconomy.io')
+        emailext(subject: 'test mail', body: 'Build Logs', attachLog: true, compressLog: true, from: 'nikhita@biconomy.io', to: 'nikhita@biconomy.io')
       }
     }
 
